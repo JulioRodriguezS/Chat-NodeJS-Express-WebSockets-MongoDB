@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!--bootstrap-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!--custom css-->
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <nav class="navbar navbar-light bg-warning">
+        <a href="/" class="navbar-brand mx-auto">Javascript FullStack Chat</a>
+    </nav>
+    <div class="container">
+        <div class="row">
+           <div class="card col-sm-6 mx-auto mt-4">
+               <div class="card-header">
+                   <h4>Let's Chat</h4>
+               </div>
+               <div id="chat" class="card-body"></div>
+               <div class="card-footer">
+                    <form action="/">
+                        <div class="input-group">
+                            <input type="text" id="message" class="form-control">
+                            <div class="input-group-append">                            
+                                <buttom type="submit" class="btn btn-warning form-control">Send Message</buttom>
+                            </div>
+                        </div>
+                    </form>
+               </div>
+           </div> 
+        </div>
+    </div>
+
+    <script src="socket.io/socket.io.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

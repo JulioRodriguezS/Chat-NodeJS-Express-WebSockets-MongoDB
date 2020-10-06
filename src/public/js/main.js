@@ -22,7 +22,10 @@ $(function(){
         e.preventDefault()
         let message = $messageBox.val()
         
-        socket.emit('send message',message)
+        socket.emit('send message', message, (data)=>{
+            $chat.append(`<p class="error">${data.message}</p>`)
+        })
+
         $messageBox.val('')
     })
 
@@ -34,6 +37,7 @@ $(function(){
             if(res){
                 $nickWrap.hide()
                 $contentWrap.show()
+                $('#dUserNick').html(nickName)
             }else{
                 $nickError.html(`
                 <div class="alert alert-danger">The nick name is allready exists.</div>
@@ -44,7 +48,7 @@ $(function(){
     })
 
     socket.on('new message',(data)=>{
-        $chat.append(data,'<br/>')
+        $chat.append(`<b>${data.nickname}</b>: ${data.message}<br/>`)
     })
 
     socket.on('user names',(userslist)=>{
@@ -52,6 +56,10 @@ $(function(){
         for(user of userslist)
         list += `<p><i class="fas fa-user"></i> ${user}</p>`
         $userNames.html(list)
+    })
+
+    socket.on('whisper',(data)=>{
+        $chat.append(`<b>${data.nickname}</b>: ${data.message}<br/>`)
     })
 
 })

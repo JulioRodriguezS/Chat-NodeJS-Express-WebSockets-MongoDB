@@ -62,4 +62,9 @@ $(function(){
         $chat.append(`<b>${data.nickname}</b>: ${data.message}<br/>`)
     })
 
+    socket.on('load old messages', (storageMessages)=>{
+        for(message of storageMessages)
+        $chat.append(`<b>${message.nickname}</b>: ${message.message} <em>${message.dateSend}</em><br/>`)
+    })
+
 })

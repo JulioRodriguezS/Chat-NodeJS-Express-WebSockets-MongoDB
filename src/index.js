@@ -14,13 +14,6 @@ const io = socketio.listen(server)
 app.use(express.static(path.join(__dirname,'public')))
 app.use(bodyParser.json)
 app.use(express.urlencoded({extended:false}))
-app.use((req, res, next)=>{
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
-    next();
-})
 
 //db connection
 mongoose.connect(process.env.DB_CONNECTION,{ 
@@ -30,10 +23,10 @@ mongoose.connect(process.env.DB_CONNECTION,{
     useUnifiedTopology: true  
 })
 .then(
-    db=>{console.log('DB CONNECTED')}
+    (res)=>{console.log('DB CONNECTED, ')}
 )
 .catch(
-    err=>{console.log('ERR: ',err)}
+    (err)=>{console.log('ERR: ',err)}
 )
 
 

@@ -1,9 +1,13 @@
 const mongoose = require('mongoose')
 
-const chatSchema = new mongoose.Schema({
+const ChatSchema = new mongoose.Schema({
     message:{
         type:String,
         require: true
+    },
+    nickname:{
+        type:String,
+        require:true
     },
     dateSend:{
         type:Date,
@@ -11,4 +15,4 @@ const chatSchema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('chat', chatSchema)
+module.exports = mongoose.model('chat', ChatSchema)

@@ -1,10 +1,17 @@
+const Chat = require('../models/chat')
+
 module.exports = function(io){
     let users = {}
 
-    io.on('connection', newsocket=>{
+    io.on('connection', async newsocket=>{
+
+        let storageMessage = await Chat.find({}).lean()
+
+        newsocket.emit('load old messages',storageMessage)
+
         console.log('new user connected')
 
-        newsocket.on('send message', (message, callback)=>{
+        newsocket.on('send message', async (message, callback)=>{
 
             message=message.trim()
 
@@ -30,15 +37,18 @@ module.exports = function(io){
                         nickname: newsocket.nickname
                     })
                 }
-            }else{                
-                io.sockets.emit('new message',{
+            }else{       
+                let msgObj = {
                     message: message,
                     nickname: newsocket.nickname
-                })
+                }
+                io.sockets.emit('new message',msgObj)
+                let sendMsg = new Chat(msgObj)
+                await sendMsg.save()
             }
         })
 
-        newsocket.on('new user', (nickname, callback)=>{
+        newsocket.on('new user', async (nickname, callback)=>{
             if(nickname in users){
                 callback(false)
             }else{
